@@ -3,7 +3,7 @@ const UsersModel = require('../models/UsersModel')
 const users = express.Router()
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
-const {verifyToken, checkOwner} = require('../middlewares/verifyToken')
+const {verifyToken, checkUserDataOwner} = require('../middlewares/verifyToken')
 
 users.get('/all', verifyToken, async (req, res, next) => {
     try {
@@ -66,7 +66,7 @@ users.post('/create', async (req, res, next) => {
     }
 })
 
-users.put('/:userId', verifyToken, checkOwner, async (req, res, next) => {
+users.put('/:userId', verifyToken, checkUserDataOwner, async (req, res, next) => {
     const { userId } = req.params
     const modifiedUser = req.body
 
@@ -90,7 +90,7 @@ users.put('/:userId', verifyToken, checkOwner, async (req, res, next) => {
     }
 })
 
-users.delete('/:userId', verifyToken, checkOwner, async (req, res, next) => {
+users.delete('/:userId', verifyToken, checkUserDataOwner, async (req, res, next) => {
     const { userId } = req.params
 
     try {
