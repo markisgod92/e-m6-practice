@@ -1,12 +1,13 @@
 const express = require('express')
-const UserModel = require('../models/UsersModel')
+const UsersModel = require('../models/UsersModel')
 const users = express.Router()
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const verifyToken = require('../middlewares/verifyToken')
 
-users.get('/all', async (req, res, next) => {
+users.get('/all', verifyToken, async (req, res, next) => {
     try {
-        const users = await UserModel.find()
+        const users = await UsersModel.find()
 
         if(users.length === 0) {
             const error = new Error('No users found.')
@@ -25,11 +26,11 @@ users.get('/all', async (req, res, next) => {
     }
 })
 
-users.get('/user/:userId', async (req, res, next) => {
-    const { userId } = req.params()
+users.get('/:userId', verifyToken, async (req, res, next) => {
+    const { userId } = req.params
 
     try {
-        const user = await UserModel.findById(userId)
+        const user = await UsersModel.findById(userId)
 
         if(!user) {
             const error = new Error('No users found.')
@@ -41,6 +42,23 @@ users.get('/user/:userId', async (req, res, next) => {
             .send({
                 statusCode: 200,
                 message: `User ${userId} found.`,
+                user
+            })
+    } catch (error) {
+        next(error)
+    }
+})
+
+users.post('/create', async (req, res, next) => {
+    const newUser = new UsersModel(req.body)
+
+    try {
+        const user = await newUser.save()
+
+        res.status(201)
+            .send({
+                statusCode: 201,
+                message: 'User registered.',
                 user
             })
     } catch (error) {

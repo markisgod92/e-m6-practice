@@ -1,5 +1,5 @@
 const genericErrorHandler = (err, req, res, next) => {
-    const errorStatus = err.statusCode || 500
+    const errorStatus = err.status || 500
     const errorMessage = err.message || 'Internal server error.'
 
     res.status(errorStatus)

@@ -12,9 +12,14 @@ server.use(cors())
 server.use(express.json())
 server.use(logger)
 
+// ROUTES
 const usersRoutes = require('./routes/users')
 server.use('/users', usersRoutes)
 
+const loginRoutes = require('./routes/login')
+server.use('/', loginRoutes)
+
+// ERROR MW
 server.use(notFoundErrorHandler)
 server.use(genericErrorHandler)
 
