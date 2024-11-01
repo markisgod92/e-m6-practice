@@ -1,0 +1,23 @@
+{
+  "name": "e-m6-practice",
+  "version": "1.0.0",
+  "description": "Practice for Epicode Module 6 - Backend",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "format": "npx prettier --write",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marco Gusso",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.0",
+    "nodemon": "^3.1.7"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
+}
