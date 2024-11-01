@@ -19,6 +19,9 @@ server.use('/users', usersRoutes)
 const loginRoutes = require('./routes/login')
 server.use('/', loginRoutes)
 
+const itemsRoutes = require('./routes/items')
+server.use('/items', itemsRoutes)
+
 // ERROR MW
 server.use(notFoundErrorHandler)
 server.use(genericErrorHandler)

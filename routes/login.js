@@ -7,15 +7,12 @@ const jwt = require('jsonwebtoken')
 
 login.post('/login', async (req, res, next) => {
     try {
-        const user = await UsersModel.findOne({ email: req.body.email })
+        const user = await UsersModel.findOne({ username: req.body.username })
         if (!user) {
             const error = new Error('No users found.')
             error.status = 404
             return next(error)
         }
-
-        const loginPasswordHash = await bcrypt.hash(req.body.password, 10); // genera un nuovo hash per il test
-console.log("Hash della password di login:", loginPasswordHash);
 
         const isPwValid = await bcrypt.compare(req.body.password, user.password)
         if (!isPwValid) {

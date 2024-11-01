@@ -58,7 +58,7 @@ const UserSchema = new mongoose.Schema({
             ref: 'reviewsModel'
         }
     ]
-})
+}, { timestamps: true, strict: true })
 
 UserSchema.pre('save', async function(next) {
     const user = this
